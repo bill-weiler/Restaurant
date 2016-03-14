@@ -24,6 +24,7 @@ function Drink(name, description, price, ingredients) {
   this.ingredients = ingredients
 }
 Drink.prototype.stringify = function() {
+
   return (this.name.toUpperCase() + ' is a ' + this.description + '.\nPrice: $' + this.price + '\nIngredients: ' + this.ingredients)
 }
 //Drink
@@ -39,7 +40,12 @@ function Plate(name, description, price, ingredients) {
   this.ingredients = ingredients
 }
 Plate.prototype.stringify = function() {
-  return (this.name.toUpperCase() + ' is ' + this.description + '.\nPrice: $' + this.price + '\nIngredients: ' + this.ingredients)
+  var stringArray = []
+  for (var i = 0; i < this.ingredients.length; i++) {
+    stringArray.push(this.ingredients[i].name)
+  }
+  var foodItemsNames = stringArray.join(', ')
+  return (this.name.toUpperCase() + ' is ' + this.description + '.\nPrice: $' + this.price + '\nIngredients: ' + foodItemsNames)
 }
 Plate.prototype.isVegan = function() {
   for (var i = 0; i < this.ingredients.length; i++) {
@@ -66,9 +72,9 @@ Plate.prototype.isCitrusFree = function() {
   return true
 }
 //Plates
-var plate1 = new Plate('Daily speacial',  'fresh salad with chocolatey dessert', 13, [salad, brownie])
-var plate2 = new Plate('Daily speacial2', 'fresh salad', 14, [salad])
-var plate3 = new Plate('Daily speacial3', 'steak and dessert', 15, [steak, brownie])
+var plate1 = new Plate('MWF Special',  'fresh salad with chocolatey dessert', 12, [salad, brownie])
+var plate2 = new Plate('T/TH Special', 'fresh salad and steak', 14, [salad, steak])
+var plate3 = new Plate('Weekend Special', 'drinking time', 8, [oldFashioned])
 var platesArray = [plate1, plate2, plate3]
 
 
@@ -115,7 +121,7 @@ Restaurant.prototype.stringify = function() {
     console.log(this.menu.plates[i].stringify())
   }
 }
-var RestauranteFantastico = new Restaurant('El Fantastico Restaurante', 'Fantastic Food, Fantatasitic Prices', menu1)
+var meatNBooze = new Restaurant("Meat n' Booze", 'The name says it all', menu1)
   // console.log("Calling RestauranteFantastico.stringify()")
   // RestauranteFantastico.stringify()
 
