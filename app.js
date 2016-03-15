@@ -5,6 +5,30 @@
 
   function meatController() {
     var meatCtrl = this
+    meatCtrl.order = function(plate){
+      plate.ordered = !plate.ordered
+    }
+
+
+
+
+
+
+    //--------------------Drinks-------------------\\
+    function Drink(name, description, price, ingredients) {
+      this.name = name
+      this.description = description
+      this.price = price
+      this.ingredients = ingredients
+
+    }
+    Drink.prototype.stringify = function() {
+
+      return (this.name.toUpperCase() + ' is a ' + this.description + '.\nPrice: $' + this.price + '\nIngredients: ' + this.ingredients)
+    }
+    //Drink
+    meatCtrl.oldFashioned = new Drink('Old Fashioned', 'classic cocktail', 8, 'Whiskey, sugar, bitters')
+
 
     //--------------Start Food Items-------------\\
     function FoodItem(name, calories, vegan, glutenFree, citrusFree) {
@@ -24,19 +48,6 @@
 
 
 
-    //--------------------Drinks-------------------\\
-    function Drink(name, description, price, ingredients) {
-      this.name = name
-      this.description = description
-      this.price = price
-      this.ingredients = ingredients
-    }
-    Drink.prototype.stringify = function() {
-
-        return (this.name.toUpperCase() + ' is a ' + this.description + '.\nPrice: $' + this.price + '\nIngredients: ' + this.ingredients)
-      }
-      //Drink
-    meatCtrl.oldFashioned = new Drink('Old Fashioned', 'classic cocktail', 8, 'Whiskey, sugar, bitters')
 
 
 
@@ -46,6 +57,7 @@
       this.description = description
       this.price = price
       this.ingredients = ingredients
+      this.ordered = false
     }
     Plate.prototype.stringify = function() {
       var stringArray = []
@@ -80,10 +92,19 @@
         return true
       }
       //Plates
-    meatCtrl.plate1 = new Plate('MWF Special', 'fresh salad with chocolatey dessert', 12, [meatCtrl.salad, meatCtrl.brownie])
-    meatCtrl.plate2 = new Plate('T/TH Special', 'fresh salad and steak', 14, [meatCtrl.salad, meatCtrl.steak])
-    meatCtrl.plate3 = new Plate('Weekend Special', 'drinking time', 8, [meatCtrl.oldFashioned])
-    meatCtrl.platesArray = [meatCtrl.plate1, meatCtrl.plate2, meatCtrl.plate3]
+    meatCtrl.plate1 = new Plate('MWF Special!', 'Fresh salad with chocolatey dessert', 11, [meatCtrl.salad, meatCtrl.brownie])
+    meatCtrl.plate2 = new Plate('T/TH Special!', 'Fresh salad and steak', 13, [meatCtrl.salad, meatCtrl.steak])
+    meatCtrl.plate3 = new Plate('Brownie', 'Hot brownie with ice cream', 8, [meatCtrl.brownie])
+    meatCtrl.plate4 = new Plate('Salad', 'Fresh salad', 3, [meatCtrl.salad])
+    meatCtrl.plate5 = new Plate('Steak', 'Filet mignon', 10, [meatCtrl.steak])
+    meatCtrl.plate6 = new Plate('Weekend Special!', 'Drinking time', 8, [meatCtrl.oldFashioned])
+    meatCtrl.platesArray = [meatCtrl.plate1, meatCtrl.plate2, meatCtrl.plate3, meatCtrl.plate4, meatCtrl.plate5, meatCtrl.plate6]
+    console.log(meatCtrl.plate1)
+    console.log(meatCtrl.plate2)
+    console.log(meatCtrl.plate3)
+    console.log(meatCtrl.plate4)
+    console.log(meatCtrl.plate5)
+    console.log(meatCtrl.plate6)
 
 
 
