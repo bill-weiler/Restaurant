@@ -12,12 +12,12 @@
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body ng-controller="meatController as meatCtrl">
+<body ng-controller="meatController as m">
   <nav>
     <div class="nav-wrapper">
-      <img width="64" class="left" src="http://www.i2clipart.com/cliparts/7/7/a/2/clipart-ox-77a2.png"/>
+      <img width="64" class="left" src="http://www.i2clipart.com/cliparts/7/7/a/2/clipart-ox-77a2.png" />
       <a href="#" class="brand-logo left" style="padding-left: 10px;">Meat N' Booze</a>
-      <img width="64" class="left" style="margin-left: 205px; margin-top: -8px; "src="https://www.bevspot.com/wp-content/themes/bevblog/images/cocktail-glassware/cordial-line.png"/>
+      <img width="64" class="left" style="margin-left: 205px; margin-top: -8px; " src="https://www.bevspot.com/wp-content/themes/bevblog/images/cocktail-glassware/cordial-line.png" />
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="sass.html">About</a></li>
         <li><a href="badges.html">Contact</a></li>
@@ -28,28 +28,45 @@
   <div class="container">
     <div class="row">
       <div class="col s6">
+        <h2 class="card-panel center">Menu</h2>
         <ul class="collection">
-          <li class="collection-item avatar" ng-repeat="plate in meatCtrl.platesArray | filter : plate.order = false">
-            <img src="http://files.mom.me/photos/2013/05/11/135-9864-heather-likes-food-steak-1368280033.jpg" alt="" class="circle">
-            <span class="title">{{plate.name}}</span>
-            <p>{{plate.ordered}}
-              <br> {{plate.price | currency: '$':0}}
+           <!-- | filter: m.dietFilter(m.diet,p) = true -->
+          <li class="collection-item avatar" ng-class=" m.dietFilter(p) ? '' : 'red'" ng-repeat="p in m.menu">
+            <img src="http://files.mom.me/photos/2013/05/11/135-9864-heather-likes-food-steak-1368280033.jpg" class="circle">
+            <span class="title">{{p.name}}</span>
+            <p>{{p.description}}
+              <br> {{p.price | currency: '$':0}}
             </p>
-            <a href="#!" ng-click="meatCtrl.order(plate)"class="secondary-content"><i class="material-icons medium">trending_flat</i></a>
+            <a href="#!" ng-click="m.addToOrder(p)" class="secondary-content"><i class="material-icons medium">trending_flat</i></a>
           </li>
         </ul>
+        <div class="card-panel center">
+          <h5>Dietary Preference</h5>
+          <select ng-model="m.diet" class="browser-default">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="">Best Mode</option>
+            <option value="1">Vegan</option>
+            <option value="2">Gluten Free</option>
+            <option value="3">Citrus Free</option>
+          </select>
+        </div>
       </div>
       <div class="col s6">
+        <h2 class="card-panel center">Order</h2>
         <ul class="collection">
-          <li class="collection-item avatar" ng-repeat="plate in meatCtrl.platesArray | filter : plate.order = true ">
+          <li class="collection-item avatar" ng-repeat="p in m.customerOrder">
             <img src="http://files.mom.me/photos/2013/05/11/135-9864-heather-likes-food-steak-1368280033.jpg" class="circle">
-            <span class="title">{{plate.name}}</span>
-            <p>{{plate.ordered}}
-              <br> {{plate.price | currency: '$':0}}
+            <span class="title">{{p.name}}</span>
+            <p>{{p.description}}
+              <br> {{p.price | currency: '$':0}}
+              <br> Quantity: {{p.quantity}}
             </p>
-            <a href="#!" ng-click="meatCtrl.order(plate)" class="secondary-content"><i class="material-icons medium" style="transform: rotate(180deg);">trending_flat</i></a>
+            <a href="#!" ng-click="m.removeFromOrder(p)" class="secondary-content"><i class="material-icons medium" style="transform: rotate(180deg);">trending_flat</i></a>
           </li>
         </ul>
+        <div class="card-panel center">
+          <h5>Price: {{m.finalPrice | currency: '$':2}}</h5>
+        </div>
       </div>
     </div>
   </div>
