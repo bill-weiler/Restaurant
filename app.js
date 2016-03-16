@@ -1,16 +1,25 @@
 (function() {
   'use strict';
-  angular.module('meatNBooze', [])
+  angular.module('meatNBooze', ['ui.router'])
     .controller('meatController', meatController)
+    .config(MainRouter)
+
+  function MainRouter($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('home', {url: "/", templateUrl: "home.html",})
+      .state('about', {url: "/", templateUrl: "about.html",})
+      .state('contact', {url: "/", templateUrl: "contact.html",})
+    $urlRouterProvider.otherwise('/')
+  }
 
   function meatController() {
     // DELCARE THIS VARIABLE POINTING TO CONTROLLER
     var meatCtrl = this
-    // CREATE FOOD OBJECTS
+      // CREATE FOOD OBJECTS
     meatCtrl.salad = new FoodItem('Salad', 200, true, true, false)
     meatCtrl.steak = new FoodItem('Steak', 700, false, true, true)
     meatCtrl.brownie = new FoodItem('Brownie', 1500, false, false, true)
-    // CREATE DRINK OBJECTS
+      // CREATE DRINK OBJECTS
     meatCtrl.oldFashioned = new Drink('Old Fashioned', 'classic cocktail', 8, 'Whiskey, sugar, bitters')
 
     // CREATE PLATE OBJECTS
@@ -20,15 +29,15 @@
     meatCtrl.plate4 = new Plate('MWF Special!', 'Fresh salad with chocolatey dessert', 11, [meatCtrl.salad, meatCtrl.brownie])
     meatCtrl.plate5 = new Plate('T/TH Special!', 'Fresh salad and steak', 13, [meatCtrl.salad, meatCtrl.steak])
     meatCtrl.plate6 = new Plate('Weekend Special!', 'Drinking time', 8, [meatCtrl.oldFashioned])
-    //
+      //
     meatCtrl.menu = [meatCtrl.plate1, meatCtrl.plate2, meatCtrl.plate3, meatCtrl.plate4, meatCtrl.plate5, meatCtrl.plate6]
     meatCtrl.customerOrder = []
     meatCtrl.mainMenu = new Menu(meatCtrl.menu)
     meatCtrl.meatNBooze = new Restaurant("Meat n' Booze", 'The name says it all', meatCtrl.mainMenu)
-    // meatCtrl.diet
-    // meatCtrl.order1 = new Order(meatCtrl.customerOrder)
-    //CONTROLLER METHODS
-    //adding to order and add quantity
+      // meatCtrl.diet
+      // meatCtrl.order1 = new Order(meatCtrl.customerOrder)
+      //CONTROLLER METHODS
+      //adding to order and add quantity
     meatCtrl.addToOrder = function(plate) {
       if (meatCtrl.customerOrder.indexOf(plate) == -1) {
         plate.quantity++
@@ -88,11 +97,11 @@
       this.citrusFree = citrusFree
     }
     FoodItem.prototype.stringify = function() {
-      return this.name.toUpperCase() + ' has ' + this.calories + ' calories.\n' + 'Vegan: ' + this.vegan + '\nGluten free: ' + this.glutenFree + '\nCitrus Free: ' + this.citrusFree
-    }
-    //---------------------------------------------------------\\
-    //---------------------------------------------------------\\
-    //--------------------PLATE CONSTRUCTOR-------------------\\
+        return this.name.toUpperCase() + ' has ' + this.calories + ' calories.\n' + 'Vegan: ' + this.vegan + '\nGluten free: ' + this.glutenFree + '\nCitrus Free: ' + this.citrusFree
+      }
+      //---------------------------------------------------------\\
+      //---------------------------------------------------------\\
+      //--------------------PLATE CONSTRUCTOR-------------------\\
     function Plate(name, description, price, ingredients, diet) {
       this.name = name
       this.description = description
@@ -118,15 +127,15 @@
       return true
     }
     Plate.prototype.isCitrusFree = function() {
-      for (var i = 0; i < this.ingredients.length; i++) {
-        if (this.ingredients[i].citrusFree == false) {
-          return false
+        for (var i = 0; i < this.ingredients.length; i++) {
+          if (this.ingredients[i].citrusFree == false) {
+            return false
+          }
         }
+        return true
       }
-      return true
-    }
-    //---------------------------------------------------------\\
-    //--------------------ORDER CONSTRUCTOR-------------------\\
+      //---------------------------------------------------------\\
+      //--------------------ORDER CONSTRUCTOR-------------------\\
     function Order(plates) {
       this.plates = plates
     }
@@ -136,17 +145,17 @@
       this.plates = plates
     }
     Menu.prototype.stringify = function() {
-      for (var i = 0; i < this.plates.length; i++) {
-        console.log(this.plates[i].stringify())
+        for (var i = 0; i < this.plates.length; i++) {
+          console.log(this.plates[i].stringify())
+        }
       }
-    }
-    //---------------------------------------------------------\\
-    //--------------------RESTAURANT CONSTRUCTOR-------------------\\
+      //---------------------------------------------------------\\
+      //--------------------RESTAURANT CONSTRUCTOR-------------------\\
     function Restaurant(name, description, menu) {
       this.name = name
       this.description = description
       this.menu = menu
     }
-  }//END OF CONTROLLER
+  } //END OF CONTROLLER
 
 }());

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col s6">
+    <h2 class="card-panel center">Menu</h2>
+    <ul class="collection">
+       <!-- | filter: m.dietFilter(m.diet,p) = true -->
+      <li class="collection-item avatar" ng-class=" m.dietFilter(p) ? '' : 'red'" ng-repeat="p in m.menu">
+        <img src="http://files.mom.me/photos/2013/05/11/135-9864-heather-likes-food-steak-1368280033.jpg" class="circle">
+        <span class="title">{{p.name}}</span>
+        <p>{{p.description}}
+          <br> {{p.price | currency: '$':0}}
+        </p>
+        <a href="#!" ng-click="m.addToOrder(p)" class="secondary-content"><i class="material-icons medium">trending_flat</i></a>
+      </li>
+    </ul>
+    <div class="card-panel center">
+      <h5>Dietary Preference</h5>
+      <select ng-model="m.diet" class="browser-default">
+        <option value="" disabled selected>Choose your option</option>
+        <option value="">No preference</option>
+        <option value="1">Vegan</option>
+        <option value="2">Gluten Free</option>
+        <option value="3">Citrus Free</option>
+      </select>
+    </div>
+  </div>
+  <div class="col s6">
+    <h2 class="card-panel center">Order</h2>
+    <ul class="collection">
+      <li class="collection-item avatar" ng-repeat="p in m.customerOrder">
+        <img src="http://files.mom.me/photos/2013/05/11/135-9864-heather-likes-food-steak-1368280033.jpg" class="circle">
+        <span class="title">{{p.name}}</span>
+        <p>{{p.description}}
+          <br> {{p.price | currency: '$':0}}
+          <br> <b>Quantity: {{p.quantity}}</b>
+        </p>
+        <a href="#!" ng-click="m.removeFromOrder(p)" class="secondary-content"><i class="material-icons small">delete</i></a>
+      </li>
+    </ul>
+    <div class="card-panel center">
+      <h5>Price: {{m.finalPrice | currency: '$':2}}</h5>
+    </div>
+  </div>
+</div>
